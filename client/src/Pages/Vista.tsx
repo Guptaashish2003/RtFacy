@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Camera, Mic, MicOff, VideoOff, Sparkles, X } from 'lucide-react';
 import CameraView from '../components/CameraView';
+import { API_URL } from '../config';
 
 const Vista = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const apiUrl =  API_URL || 
+    (window.location.hostname === 'localhost' ? 'http://localhost:8000' : window.location.origin.replace('5173', '8000'));
+  const [overlayError, setOverlayError] = useState(false);
 
   const handleLaunch = () => {
     setIsActive(!isActive);
@@ -15,20 +18,10 @@ const Vista = () => {
     <div className="relative min-h-screen w-full flex items-center justify-center p-4">
       {isActive && (
         <div className="fixed inset-0 z-50 bg-[#0E0C15]/95 backdrop-blur-sm flex items-center justify-center">
-          <div className="relative w-full max-w-6xl aspect-video rounded-3xl overflow-hidden border-2 border-[#ac6aff]/50 shadow-2xl shadow-[#ac6aff]/20">
+          <div className="relative w-full max-w-6xl aspect-[3/4] md:aspect-video rounded-3xl overflow-hidden border-2 border-[#ac6aff]/50 shadow-2xl shadow-[#ac6aff]/20">
             
-            {/* 1. Live Camera Feed (Sends data via fetch) */}
+            {/* 1. Live Camera Feed (Draws bounding boxes locally) */}
             <CameraView />
-            
-            {/* 2. Processed AI Overlay (Received from Python via MJPEG) */}
-            <img 
-              src={`${apiUrl}/api/video/stream`} 
-              alt="AI Analysis"
-              className="absolute inset-0 w-full h-full object-cover pointer-events-none" 
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
-              }}
-            />
 
             {/* Overlay UI */}
             <div className="absolute inset-0 pointer-events-none">

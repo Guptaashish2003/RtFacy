@@ -23,8 +23,8 @@ async def receive_frame(
 ):
     """Endpoint to receive a single video frame."""
     frame_bytes = await file.read()
-    await pipeline.process_frame(frame_bytes)
-    return {"status": "success"}
+    roi = await pipeline.process_frame(frame_bytes)
+    return {"status": "success", "roi": roi}
 
 @router.get("/api/video/stream")
 async def stream_video(pipeline: VideoPipelineService = Depends(get_video_pipeline)):
