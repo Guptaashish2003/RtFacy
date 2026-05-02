@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-heading: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-family-body: "Inter", system-ui, sans-serif;
+  
+  --color-purple-light: #ac6aff;
+  --color-purple-dark: #5e00ff;
+  --color-cyan: #00d4ff;
+  --color-orange: #ff7a00;
+  --color-pink: #ff006e;
+  --color-green: #00ff88;
+  
+  --breakpoint-xs: 475px;
+  --breakpoint-3xl: 1792px;
+}
+
+@layer base {
+  * {
+    @apply border-0 m-0 p-0 box-border;
+  }
+  
+  body {
+    @apply bg-[#0E0C15] text-white antialiased;
+    font-family: var(--font-family-body);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
+  }
+}
+
+@layer utilities {
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(135deg, rgba(172, 106, 255, 0.1), rgba(0, 212, 255, 0.1));
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #ac6aff, #00d4ff);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}
