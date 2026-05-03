@@ -14,6 +14,7 @@ Vista Vision is a high-performance, containerized AI vision system designed for 
 
 ## 🏗️ Architecture
 
+<img width="1600" height="739" alt="WhatsApp Image 2026-05-02 at 7 14 32 PM" src="https://github.com/user-attachments/assets/651d86c6-cc27-4856-9506-9ade8cbcb86d" />
 - **Backend (`pi-server`)**: 
   - Framework: **FastAPI**
   - Computer Vision: **Face-Recognition / Dlib**
